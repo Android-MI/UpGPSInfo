@@ -21,7 +21,7 @@ public class MyApplication extends Application {
     /**
      * 操作人员id
      */
-    public static int EXECUTOR_USER_ID = 0;
+    public static String EXECUTOR_USER_ID = "";
 
     @Override
     public void onCreate() {

@@ -32,10 +32,15 @@ public class Constants {
      * longitude:经度
      * latitude:纬度
      * dateTime:时间（yyyy-MM-dd HH:mm:ss）
+     * executorUserId 操作员id
      */
-    public static final String API_GPS_INFO = "http://" + API_DOMAIN + "/wx/sys/getGPSInfo?pdaMac={0}&longitude={1}&latitude={2}&dateTime={3}";
-
+    public static final String API_GPS_INFO = "http://" + API_DOMAIN + "/wx/sys/getGPSInfo?pdaMac={0}&longitude={1}&latitude={2}&dateTime={3}&executorUserId={4}";
+    
     public static final String getGpsInfo(String ipAddress) {
-        return "http://" + ipAddress + "/wx/sys/getGPSInfo?pdaMac={0}&longitude={1}&latitude={2}&dateTime={3}";
+        return "http://" + ipAddress + "/wx/sys/getGPSInfo?pdaMac={0}&longitude={1}&latitude={2}&dateTime={3}&executorUserId={4}";
+    }
+
+    public static final String getUserList(String ipAddress) {
+        return "http://" + ipAddress + "/wx/sys/getUserInfo";
     }
 }

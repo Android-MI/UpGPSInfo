@@ -21,6 +21,11 @@ public class SpinnerArrayAdapter extends BaseAdapter implements SpinnerAdapter {
         this.mContext = mContext;
         this.mList = mList;
     }
+    public void refreshList(List<UserInfo> list){
+        this.mList = list;
+        notifyDataSetChanged();
+    }
+
 
     @Override
     public int getCount() {
@@ -52,7 +57,7 @@ public class SpinnerArrayAdapter extends BaseAdapter implements SpinnerAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
-        holder.tv.setText(mList.get(i).getName() + " " + mList.get(i).getId());
+        holder.tv.setText(mList.get(i).userName + " - " + mList.get(i).post);
         return view;
     }
 
@@ -71,7 +76,7 @@ public class SpinnerArrayAdapter extends BaseAdapter implements SpinnerAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.tv.setText(mList.get(position).getName() + " " + mList.get(position).getId());
+        holder.tv.setText(mList.get(position).userName + " - " + mList.get(position).post);
         return convertView;
     }
 

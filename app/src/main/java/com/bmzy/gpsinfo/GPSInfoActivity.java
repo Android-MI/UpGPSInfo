@@ -31,7 +31,10 @@ import com.hdl.myhttputils.MyHttpUtils;
 import com.hdl.myhttputils.bean.StringCallBack;
 
 import java.text.MessageFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -77,6 +80,7 @@ public class GPSInfoActivity extends AppCompatActivity {
     private double longitude;
 
     private static boolean isExit = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,8 +143,7 @@ public class GPSInfoActivity extends AppCompatActivity {
     protected void onDestroy() {
         locationService.unregisterListener(mListener); //注销掉监听
         locationService.stop(); //停止定位服务
-        MyApplication.EXECUTOR_USER_ID = 0;
-        Log.e("onDestory", "d");
+        MyApplication.EXECUTOR_USER_ID = "";
         super.onDestroy();
     }
 
@@ -248,7 +251,7 @@ public class GPSInfoActivity extends AppCompatActivity {
                 longitude = location.getLongitude();
                 latitude = location.getLatitude();
 
-                uploadLbsInfo();
+                String locationTime = location.getTime();
 
                 StringBuffer sb = new StringBuffer(256);
                 sb.append("time : ");
@@ -316,6 +319,18 @@ public class GPSInfoActivity extends AppCompatActivity {
                     sb.append("无法获取有效定位依据导致定位失败，一般是由于手机的原因，处于飞行模式下一般会造成这种结果，可以试着重启手机");
                 }
                 logMsg(sb.toString(), tag);
+
+
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date ;
+                try {
+                    date = format.parse(locationTime);
+                    timestamp = date.getTime();
+                } catch (ParseException e) {
+                    timestamp = System.currentTimeMillis();
+                }
+                Log.e("定位时间：",timestamp+"");
+                uploadLbsInfo();
             }
         }
 
@@ -421,7 +436,7 @@ public class GPSInfoActivity extends AppCompatActivity {
     }
 
     private void uploadLbsInfo() {
-        String uploadInfoUrl = MessageFormat.format(gpsUrl, mac, longitude, latitude, new Long(timestamp).toString());
+        String uploadInfoUrl = MessageFormat.format(gpsUrl, mac, longitude, latitude, new Long(timestamp).toString(),MyApplication.EXECUTOR_USER_ID);
         Log.e("上传url=", uploadInfoUrl);
         MyHttpUtils.build()
                 .url(uploadInfoUrl)
