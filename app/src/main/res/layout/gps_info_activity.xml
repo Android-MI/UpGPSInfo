@@ -32,27 +32,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="接口地址："
-                android:textColor="#121212"
-                android:textSize="15sp" />
-            <EditText
-                android:id="@+id/ipAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:hint="输入接口地址"
-                android:paddingLeft="5dp"
-                android:paddingTop="10dp"
-                android:paddingRight="5dp"
-                android:paddingBottom="10dp"
-                android:textColor="#121212"
-                android:textSize="15sp" />
-
-
-            <TextView
                 android:id="@+id/servicetime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

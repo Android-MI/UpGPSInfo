@@ -5,7 +5,6 @@
     android:versionCode="1"
     android:versionName="1.0">
 
-    <!-- 这个权限用于进行网络定位-->
     <application
         android:name="com.bmzy.gpsinfo.MyApplication"
         android:allowBackup="true"
@@ -15,13 +14,18 @@
         android:networkSecurityConfig="@xml/http_set"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.bmzy.gpsinfo.MainActivity"
+            android:name="com.bmzy.gpsinfo.LoginActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.bmzy.gpsinfo.MainActivity"
+            android:label="@string/app_name">
         </activity>
         <activity
             android:name="com.bmzy.gpsinfo.GPSInfoActivity"

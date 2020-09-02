@@ -26,9 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     //操作人员id
     String executorUserId = "";
-
     SpinnerArrayAdapter adapter = null;
-
     private List<UserInfo> list = new ArrayList<>();
 
     @Override
@@ -60,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onSucceed(String result) {
                         list.clear();
                         list = UserInfo.arrayUserInfoFromData(result);
-
                         adapter.refreshList(list);
+
                     }
 
                     @Override
@@ -74,8 +72,11 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-
+    /**
+     * 初始化各view内容
+     */
     private void initViews() {
+
         mSpinner = findViewById(R.id.main_spinner_array);
         mBtnStart = findViewById(R.id.btn_start);
         mBtnStart.setOnClickListener(view -> {
@@ -88,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         adapter = new SpinnerArrayAdapter(this, list);
-
         mSpinner.setAdapter(adapter);
 
         // 为spinner设置点击事件
@@ -100,10 +100,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                executorUserId ="";
+                executorUserId = "";
             }
         });
     }
+
 
     private void goGpsInfoActivity() {
         Intent intent = new Intent(MainActivity.this, GPSInfoActivity.class);

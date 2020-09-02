@@ -15,7 +15,6 @@ import android.os.PowerManager.WakeLock;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,10 +50,6 @@ public class GPSInfoActivity extends AppCompatActivity {
      */
     TextView tvLongAndLat;
     TextView tvLocStatus;
-    /**
-     * 接口地址
-     */
-    EditText etIpAddress;
     /**
      * 开始-结束按钮
      */
@@ -98,11 +93,9 @@ public class GPSInfoActivity extends AppCompatActivity {
 
     private void initViews() {
 
-        etIpAddress = (EditText) findViewById(R.id.ipAddress);
-        tvServerTime = (TextView) findViewById(R.id.servicetime);
-        tvLongAndLat = (TextView) findViewById(R.id.tv_long_lat);
-        tvLocStatus = (TextView) findViewById(R.id.tv_lbs_status);
-        etIpAddress.setText(Constants.API_DOMAIN);
+        tvServerTime = findViewById(R.id.servicetime);
+        tvLongAndLat = findViewById(R.id.tv_long_lat);
+        tvLocStatus = findViewById(R.id.tv_lbs_status);
 
         btnStart = (Button) findViewById(R.id.btn_start);
         btnStart.setOnClickListener(v -> {
@@ -182,10 +175,8 @@ public class GPSInfoActivity extends AppCompatActivity {
             locationService.start();
 
             acquireWakeLock();
-            etIpAddress.setFocusable(false);
-            etIpAddress.setFocusableInTouchMode(false);
 
-            gpsUrl = Constants.getGpsInfo(etIpAddress.getText().toString().trim());
+            gpsUrl = Constants.getGpsInfo(Constants.API_DOMAIN);
 
             btnStart.setText("停止");
             btn_state = 1;
@@ -197,10 +188,6 @@ public class GPSInfoActivity extends AppCompatActivity {
         } else if (btn_state == 1) {
             locationService.stop();
             releaseWakeLock();
-            etIpAddress.setFocusableInTouchMode(true);
-            etIpAddress.setFocusable(true);
-            etIpAddress.requestFocus();
-
             //gpsUpdate.exit();
             btnStart.setText("开始");
             btn_state = 0;
@@ -410,7 +397,7 @@ public class GPSInfoActivity extends AppCompatActivity {
 
     private void getServerTime() {
 
-        String timeURL = Constants.getServerTime(etIpAddress.getText().toString().trim());
+        String timeURL = Constants.getServerTime(Constants.API_DOMAIN);
 
         MyHttpUtils.build()
                 .url(timeURL)
