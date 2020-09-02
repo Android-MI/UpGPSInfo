@@ -106,6 +106,10 @@ public class GPSInfoActivity extends AppCompatActivity {
     private void initLocation() {
 
         locationService = ((MyApplication) getApplication()).locationService;
+        if (locationService != null && locationService.isStart()) {
+            locationService.unregisterListener(mListener); //注销掉监听
+            locationService.stop(); //停止定位服务
+        }
         locationService.registerListener(mListener);
         locationService.setLocationOption(locationService.getDefaultLocationClientOption());
 
@@ -122,9 +126,9 @@ public class GPSInfoActivity extends AppCompatActivity {
 
             builder.setContentIntent(PendingIntent.
                     getActivity(GPSInfoActivity.this, 0, nfIntent, 0)) // 设置PendingIntent
-                    .setContentTitle("GpsInfo后台定位") // 设置下拉列表里的标题
+                    .setContentTitle("GpsInfo定位中") // 设置下拉列表里的标题
                     .setSmallIcon(R.mipmap.ic_launcher) // 设置状态栏内的小图标
-                    .setContentText("正在后台定位") // 设置上下文内容
+                    .setContentText("正在定位") // 设置上下文内容
                     .setWhen(System.currentTimeMillis()); // 设置该通知发生的时间
 
             notification = builder.build(); // 获取构建好的Notification
@@ -134,9 +138,8 @@ public class GPSInfoActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        locationService.unregisterListener(mListener); //注销掉监听
-        locationService.stop(); //停止定位服务
-        MyApplication.EXECUTOR_USER_ID = "";
+//        locationService.unregisterListener(mListener); //注销掉监听
+//        locationService.stop(); //停止定位服务
         super.onDestroy();
     }
 
@@ -161,6 +164,7 @@ public class GPSInfoActivity extends AppCompatActivity {
                 }
             }, 2000);
         } else {
+            MyApplication.getApplication().resetUserId();
             finish();
         }
     }
@@ -200,7 +204,7 @@ public class GPSInfoActivity extends AppCompatActivity {
     }
 
     private void goLoginActivity() {
-        MyApplication.EXECUTOR_USER_ID="";
+        MyApplication.getApplication().resetUserId();
         Intent intent = new Intent(GPSInfoActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
@@ -317,14 +321,14 @@ public class GPSInfoActivity extends AppCompatActivity {
 
 
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Date date ;
+                Date date;
                 try {
                     date = format.parse(locationTime);
                     timestamp = date.getTime();
                 } catch (ParseException e) {
                     timestamp = System.currentTimeMillis();
                 }
-                Log.e("定位时间：",timestamp+"");
+                Log.e("定位时间：", timestamp + "");
                 uploadLbsInfo();
             }
         }
@@ -431,7 +435,7 @@ public class GPSInfoActivity extends AppCompatActivity {
     }
 
     private void uploadLbsInfo() {
-        String uploadInfoUrl = MessageFormat.format(gpsUrl, mac, longitude, latitude, new Long(timestamp).toString(),MyApplication.EXECUTOR_USER_ID);
+        String uploadInfoUrl = MessageFormat.format(gpsUrl, mac, longitude, latitude, new Long(timestamp).toString(), MyApplication.EXECUTOR_USER_ID);
         Log.e("上传url=", uploadInfoUrl);
         MyHttpUtils.build()
                 .url(uploadInfoUrl)

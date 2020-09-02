@@ -100,7 +100,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                executorUserId = "";
+
+                MyApplication.getApplication().resetUserId();
             }
         });
     }

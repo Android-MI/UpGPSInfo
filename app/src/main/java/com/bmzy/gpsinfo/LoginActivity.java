@@ -52,18 +52,9 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        vertifyExecutorUser();
         setContentView(R.layout.activity_login);
         initViews();
         initData();
-    }
-
-
-    private void vertifyExecutorUser() {
-        if (MyApplication.EXECUTOR_USER_ID != null && MyApplication.EXECUTOR_USER_ID.length() > 0) {
-            goGpsInfoActivity();
-            return;
-        }
     }
 
     /**

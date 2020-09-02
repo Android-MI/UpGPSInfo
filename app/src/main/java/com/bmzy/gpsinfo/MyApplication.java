@@ -61,4 +61,8 @@ public class MyApplication extends Application {
             e.printStackTrace();
         }
     }
+
+    public void resetUserId(){
+        EXECUTOR_USER_ID ="";
+    }
 }
