@@ -4,10 +4,14 @@ package com.bmzy.gpsinfo.util;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+
+import com.bmzy.gpsinfo.GPSInfoActivity;
 
 import androidx.annotation.RequiresApi;
 
@@ -37,6 +41,7 @@ public class NotificationUtils extends ContextWrapper {
         androidChannel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
 
         getManager().createNotificationChannel(androidChannel);
+
     }
 
     private NotificationManager getManager() {
@@ -48,9 +53,14 @@ public class NotificationUtils extends ContextWrapper {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public Notification.Builder getAndroidChannelNotification(String title, String body) {
+
+        Intent intent = new Intent(this, GPSInfoActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         return new Notification.Builder(getApplicationContext(), ANDROID_CHANNEL_ID)
                 .setContentTitle(title)
                 .setContentText(body)
+//                .setContentIntent(pendingIntent)
                 .setSmallIcon(android.R.drawable.stat_notify_more)
                 .setAutoCancel(true);
     }

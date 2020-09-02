@@ -146,6 +146,12 @@ public class GPSInfoActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        setIntent(intent);
+        super.onNewIntent(intent);
+    }
+
+    @Override
     protected void onDestroy() {
         locationService.unregisterListener(mListener); //注销掉监听
         locationService.stop(); //停止定位服务
