@@ -9,9 +9,9 @@ public class Constants {
     public static final String CONF_FILE = Environment.getExternalStorageDirectory() + "/com.bmzy.gpsinfo/constant.txt";
 
     // 青岛测试
-    public static String API_DOMAIN = "wxtest.qd-metro.com:10017";
+//    public static String API_DOMAIN = "wxtest.qd-metro.com:10017";
     // 青岛生产
-    //public static String API_DOMAIN = "wx.qd-metro.com:10022";
+    public static String API_DOMAIN = "wx.qd-metro.com:10022";
 
     //本地测试
     //public static String API_DOMAIN = "192.168.15.107:8080/aems-pda-service";
