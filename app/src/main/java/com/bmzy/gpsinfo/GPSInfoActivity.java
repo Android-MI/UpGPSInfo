@@ -37,7 +37,9 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class GPSInfoActivity extends AppCompatActivity {
 
@@ -77,11 +79,18 @@ public class GPSInfoActivity extends AppCompatActivity {
     private static boolean isExit = false;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gps_info_activity);
-
+        Toolbar toolbar = findViewById(R.id.toolBar);
+        toolbar.setTitle("GpsInfo");
+        setSupportActionBar(toolbar);
+//        if (getSupportActionBar() != null) {
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);//这2行是设置返回按钮的
+//            getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        }
         mContext = getApplication().getApplicationContext();
         mac = MacUtil.getMac(mContext);
 
@@ -138,18 +147,25 @@ public class GPSInfoActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-//        locationService.unregisterListener(mListener); //注销掉监听
-//        locationService.stop(); //停止定位服务
+        locationService.unregisterListener(mListener); //注销掉监听
+        locationService.stop(); //停止定位服务
         super.onDestroy();
     }
-
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            exit();
+            moveTaskToBack(false);
+//            exit();
+            return true;
         }
-        return false;
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(false);
+        super.onBackPressed();
     }
 
     private void exit() {

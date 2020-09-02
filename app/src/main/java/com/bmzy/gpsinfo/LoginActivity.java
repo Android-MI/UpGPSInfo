@@ -171,10 +171,11 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-
     private void goGpsInfoActivity() {
         Intent intent = new Intent(LoginActivity.this, GPSInfoActivity.class);
         startActivity(intent);
         finish();
     }
+
+
 }
