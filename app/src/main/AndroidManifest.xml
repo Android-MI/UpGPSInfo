@@ -15,6 +15,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.bmzy.gpsinfo.LoginActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:label="@string/app_name">
             <intent-filter>
@@ -25,10 +26,12 @@
         </activity>
         <activity
             android:name="com.bmzy.gpsinfo.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name">
         </activity>
         <activity
             android:name="com.bmzy.gpsinfo.GPSInfoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name">
         </activity>
 

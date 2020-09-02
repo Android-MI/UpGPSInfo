@@ -200,6 +200,7 @@ public class GPSInfoActivity extends AppCompatActivity {
     }
 
     private void goLoginActivity() {
+        MyApplication.EXECUTOR_USER_ID="";
         Intent intent = new Intent(GPSInfoActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
