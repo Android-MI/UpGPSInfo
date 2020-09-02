@@ -195,7 +195,14 @@ public class GPSInfoActivity extends AppCompatActivity {
             //关闭后台定位（true：通知栏消失；false：通知栏可手动划除）
             locationService.getClient().disableLocInForeground(true);
             isEnableLocInForeground = false;
+            goLoginActivity();
         }
+    }
+
+    private void goLoginActivity() {
+        Intent intent = new Intent(GPSInfoActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     //申请设备电源锁
